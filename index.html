@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <style>
+.button{
+
+background-color: #155DE9;
+border: none;
+padding: 10px 20px;
+text-align: center;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+    </style>
+   
+
+    <title>Editor rich text</title>
+</head>
+<body>
+    <textarea name="editor1" id="ck1" ></textarea>
+    <br>
+    <button class="button" onclick="sendtext()"> Submit text</button>
+
+<script type="text/javascript">
+    window.onload = () => {
+        CKEDITOR.replace("editor1");
+    };
+    function sendtext(){
+        window.parent.postmessage(CKEDITOR.instances.CK1.getData(), ("*"));
+    }
+    $w.onReady(function () {
+  $w("#index.html").onMessage( (event) => {
+    $w('#editor1').html = event.data;
+  } ); 
+} );
+</script>
+
+</body>
+</html>
